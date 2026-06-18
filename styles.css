@@ -189,7 +189,6 @@ p {
 }
 
 h1 {
-  max-width: 14ch;
   margin: 0;
   font-size: clamp(2.8rem, 7vw, 7.2rem);
   line-height: 0.95;
@@ -1157,7 +1156,6 @@ body.is-rtl .language-switcher {
   h1,
   .about-hero h1,
   .approach-hero h1 {
-    max-width: 16ch;
     font-size: clamp(2rem, 11vw, 4.25rem);
     line-height: 1;
   }
