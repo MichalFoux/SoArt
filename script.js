@@ -598,30 +598,19 @@ if (form) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
-    const registration = {
-      createdAt: new Date().toISOString(),
-      language: currentLanguage,
-      fullName: formData.get("fullName"),
-      email: formData.get("email"),
-      country: formData.get("country"),
-      role: formData.get("role"),
-      message: formData.get("message"),
-      _honey: formData.get("_honey"),
-      sourcePath: window.location.pathname
-    };
+    formData.append("language", currentLanguage);
+    formData.append("source_path", window.location.pathname);
 
     formNote.textContent = translations[currentLanguage].sending;
 
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(registration)
+        headers: { Accept: "application/json" },
+        body: formData,
       });
-      const result = await response.json();
-      if (!response.ok || !result.ok) {
-        throw new Error(result.error || "Registration failed.");
-      }
+      const data = await response.json();
+      if (!data.success) throw new Error(data.message || "Submission failed");
       form.reset();
       formNote.textContent = translations[currentLanguage].success;
     } catch (error) {

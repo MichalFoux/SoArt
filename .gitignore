@@ -3,6 +3,7 @@
 .env.*.local
 .vercel
 .tools
+data/
 node_modules
 submissions
 .deploy-site
